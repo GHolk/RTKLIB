@@ -1682,6 +1682,15 @@ int main(int argc, char **argv)
             traceclose();
             return -1;
         }
+        /* force auto start */
+        if (start) {
+            vt_t vt;
+            vt.state=1;
+            vt.in=STDIN_FILENO;
+            vt.out=STDOUT_FILENO;
+            if (startsvr(&vt)) start=0;
+            else fprintf(stderr,"fail to auto start\n");
+        }
     }
     else {
         /* open device for local console */
