@@ -1226,6 +1226,16 @@ static int decode_timtm2(raw_t *raw)
 }
 
 /* decode ublox raw message --------------------------------------------------*/
+static void print_buffer_in_hax(void *buffer, size_t length) {
+  char *char_view = buffer;
+  char hex_line[32] = {0};
+  int i;
+  for (i=0; i<length; i++) {
+    sprintf(hex_line+(i%16)*2, "%02X", char_view[i]);
+    if (i%16 == 15) trace(3, "error hex: %s\n", hex_line);
+  }
+  trace(3, "error hex: %s\n", hex_line);
+}
 static int decode_ubx(raw_t *raw)
 {
     int type=(U1(raw->buff+2)<<8)+U1(raw->buff+3);
@@ -1235,6 +1245,7 @@ static int decode_ubx(raw_t *raw)
     /* checksum */
     if (!checksum(raw->buff,raw->len)) {
         trace(2,"ubx checksum error: type=%04x len=%d\n",type,raw->len);
+        print_buffer_in_hax(raw->buff, raw->len);
         return -1;
     }
     switch (type) {
