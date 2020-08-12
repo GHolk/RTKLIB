@@ -18,6 +18,11 @@ else
 	LDLIBS  = -lm -lrt
 endif
 
+ifdef STATIC
+	LDLIBS  = -lm -lrt -pthread
+	LDFLAGS = -static
+endif
+
 all  : convbin
 
 convbin    : convbin.o rtkcmn.o rinex.o sbas.o preceph.o rcvraw.o convrnx.o
