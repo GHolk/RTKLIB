@@ -15,6 +15,11 @@ else
 	LDLIBS  = -lm -lrt
 endif
 
+ifdef STATIC
+	LDLIBS = -lm -lrt -lpthread
+	LDFLAGS = -static
+endif
+
 #LDLIBS  = ../../../lib/iers/gcc/iers.a -lgfortran -lm -lrt
 
 #CFLAGS  = -Wall -O3 -ansi -pedantic -Wno-unused-but-set-variable -I$(SRC) -DLAPACK $(OPTS)

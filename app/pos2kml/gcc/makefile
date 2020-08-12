@@ -11,6 +11,11 @@ else
 	LDLIBS  = -lm -lrt
 endif
 
+ifdef STATIC
+	LDLIBS  = -lm -lrt -lpthread
+	LDFLAGS = -static
+endif
+
 pos2kml    : pos2kml.o convkml.o convgpx.o solution.o geoid.o rtkcmn.o preceph.o
 
 pos2kml.o  : ../pos2kml.c
