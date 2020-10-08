@@ -749,6 +749,7 @@ static int decode_type1020(rtcm_t *rtcm)
     double tk_h,tk_m,tk_s,toe,tow,tod,tof;
     char *msg;
     int i=24+12,prn,sat,week,tb,bn,sys=SYS_GLO;
+    gtime_t time_current;
     
     if (i+348<=rtcm->len*8) {
         prn        =getbitu(rtcm->buff,i, 6);           i+= 6;
@@ -789,7 +790,8 @@ static int decode_type1020(rtcm_t *rtcm)
     geph.svh=bn;
     geph.iode=tb&0x7F;
     if (rtcm->time.time==0) rtcm->time=utc2gpst(timeget());
-    tow=time2gpst(gpst2utc(rtcm->time),&week);
+    time_current = utc2gpst(timeget());
+    tow=time2gpst(gpst2utc(time_current),&week);
     tod=fmod(tow,86400.0); tow-=tod;
     tof=tk_h*3600.0+tk_m*60.0+tk_s-10800.0; /* lt->utc */
     if      (tof<tod-43200.0) tof+=86400.0;
