@@ -16,3 +16,6 @@ clean:
 	@echo cleaning up...
 	@for i in $(DIRS); do $(MAKE) -C $$i/gcc clean; done
 
+release:
+	-mkdir release-$(NAME)
+	for app in $(DIRS); do mv $$app/gcc/$$app release-$(NAME)/$$app$(SUFFIX); done
