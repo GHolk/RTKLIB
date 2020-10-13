@@ -18,6 +18,10 @@ else
 	LDLIBS  = -lm -lrt -lpthread
 endif
 
+ifdef STATIC
+	LDFLAGS = -static
+endif
+
 all        : str2str
 str2str    : str2str.o stream.o rtkcmn.o solution.o sbas.o geoid.o
 str2str    : rcvraw.o novatel.o ublox.o swiftnav.o crescent.o skytraq.o gw10.o javad.o
