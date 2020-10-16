@@ -854,6 +854,7 @@ extern int rtksvrstart(rtksvr_t *svr, int cycle, int buffsize, int *strs,
         /* set receiver and rtcm option */
         strcpy(svr->raw [i].opt,rcvopts[i]);
         strcpy(svr->rtcm[i].opt,rcvopts[i]);
+        trace(2,"rtksvrstart: svr->raw[%d].opt=%s\n",i,rcvopts[i]);
         
         /* connect dgps corrections */
         svr->rtcm[i].dgps=svr->nav.dgps;

@@ -734,6 +734,7 @@ static int decode_type1019(rtcm_t *rtcm)
     eph.toe=gpst2time(eph.week,eph.toes);
     eph.toc=gpst2time(eph.week,toc);
     eph.ttr=rtcm->time;
+    trace(4,"rtcm3 1019 rtcm->time: %d\n", rtcm->time.time);
     eph.A=sqrtA*sqrtA;
     if (!strstr(rtcm->opt,"-EPHALL")) {
         if (eph.iode==rtcm->nav.eph[sat-1].iode) return 0; /* unchanged */
@@ -789,6 +790,7 @@ static int decode_type1020(rtcm_t *rtcm)
     geph.sat=sat;
     geph.svh=bn;
     geph.iode=tb&0x7F;
+    trace(4,"rtcm3 1020 rtcm->time: %d\n",rtcm->time.time);
     if (rtcm->time.time==0) rtcm->time=utc2gpst(timeget());
     time_current = utc2gpst(timeget());
     tow=time2gpst(gpst2utc(time_current),&week);
