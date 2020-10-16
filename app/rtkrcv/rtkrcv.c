@@ -188,6 +188,8 @@ static const char *pathopts[]={         /* path options help */
 #define SOLOPT  "0:llh,1:xyz,2:enu,3:nmea,4:stat"
 #define MSGOPT  "0:all,1:rover,2:base,3:corr"
 
+static char receiver_dependent_option[3][128]={"","",""};
+
 static opt_t rcvopts[]={
     {"console-passwd",  2,  (void *)passwd,              ""     },
     {"console-timetype",3,  (void *)&timetype,           TIMOPT },
@@ -400,7 +402,9 @@ static int startsvr(vt_t *vt)
     double pos[3],npos[3];
     char s1[3][MAXRCVCMD]={"","",""},*cmds[]={NULL,NULL,NULL};
     char s2[3][MAXRCVCMD]={"","",""},*cmds_periodic[]={NULL,NULL,NULL};
-    char *ropts[]={"","",""};
+    char *ropts[3]={receiver_dependent_option[0],
+                    receiver_dependent_option[1],
+                    receiver_dependent_option[2]};
     char *paths[]={
         strpath[0],strpath[1],strpath[2],strpath[3],strpath[4],strpath[5],
         strpath[6],strpath[7]
@@ -1646,6 +1650,12 @@ int main(int argc, char **argv)
         else if (!strcmp(argv[i],"-r")&&i+1<argc) outstat=atoi(argv[++i]);
         else if (!strcmp(argv[i],"-t")&&i+1<argc) trace=atoi(argv[++i]);
         else if (!strcmp(argv[i],"-sta")&&i+1<argc) strcpy(sta_name,argv[++i]);
+        else if (!strcmp(argv[i],"-opt")&&i+1<argc) {
+          i+=1;
+          strcpy(receiver_dependent_option[0],argv[i]);
+          strcpy(receiver_dependent_option[1],argv[i]);
+          strcpy(receiver_dependent_option[2],argv[i]);
+        }
         else printusage();
     }
     if (trace>0) {
