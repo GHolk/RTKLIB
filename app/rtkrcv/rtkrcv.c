@@ -136,7 +136,8 @@ static const char *usage[]={
     "  -w pwd     login password for remote console (\"\": no password)",
     "  -r level   output solution status file (0:off,1:states,2:residuals)",
     "  -t level   debug trace level (0:off,1-5:on)",
-    "  -sta sta   station name for receiver dcb"
+    "  -sta sta   station name for receiver dcb",
+    "  -opt -RDP  receiver dependent option"
 };
 static const char *helptxt[]={
     "start                 : start rtk server",

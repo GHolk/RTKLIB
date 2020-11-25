@@ -1,4 +1,4 @@
-.TH STR2STR 1 "July 29 2016"
+.TH STR2STR 1 "November 25 2020"
 .SH NAME
 str2str \- console version of stream server
 .SH SYNOPSIS
@@ -19,12 +19,14 @@ Command options are as follows.
 .IP "-in  stream[#format] input  stream path and format"
 .IP "-out stream[#format] output stream path and format"
 stream path
- serial       : serial://port[:brate[:bsize[:parity[:stopb[:fctr]]]]]
- tcp server   : tcpsvr://:port
- tcp client   : tcpcli://addr[:port]
+ serial : serial://port[:brate[:bsize[:parity[:stopb[:fctr]]]]]
+ tcp server : tcpsvr://:port
+ tcp client : tcpcli://addr[:port]
+ ucp server : udpsvr://:port
+ tcp client : udpcli://addr:port
  ntrip client : ntrip://[user[:passwd]@]addr[:port][/mntpnt]
  ntrip server : ntrips://[:passwd@]addr[:port][/mntpnt[:str]] (only out)
- file         : [file://]path[::T][::+start][::xseppd][::S=swap]
+ file : [file://]path[::T][::+start][::xseppd][::S=swap]
 
 format
  rtcm2        : RTCM 2 (only in)
@@ -76,3 +78,57 @@ http/ntrip proxy address [no]
 trace level [0]
 .IP "-h"
 print help
+
+.SH NOTES
+.SS NTRIP SOURCE leading slash sending issue
+.P
+in ntrip v1, spec does not mention wether \fBSOURCE\fP method
+should use absolute path (with leading slash)\.
+.P
+this version's rtklib will send ntrip source request
+without leading slash\. to send a source request with
+leading slash, just put double slash before mount point\.
+.P
+for example:
+.P
+.RS 2
+.nf
+str2str \-out ntrips://:password@localhost/mount\-point:strstr
+.fi
+.RE
+.P
+will send request without leading slash:
+.P
+.RS 2
+.nf
+SOURCE password mount\-point
+Source\-Agent: NTRIP RTKLIB/demo5_b33d
+STR: strstr
+.fi
+.RE
+.P
+and following command:
+.P
+.RS 2
+.nf
+str2str \-out ntrips://:password@localhost//mount\-point:strstr
+.fi
+.RE
+.P
+will send request with leading slash:
+.P
+.RS 2
+.nf
+SOURCE password /mount\-point
+Source\-Agent: NTRIP RTKLIB/demo5_b33d
+STR: strstr
+.fi
+.RE
+.P
+this will be usefull when dealing with caster
+require or require no leading slash\.
+.SS NTRIP SOURCE leading slash receiving issue
+.P
+the ntrip caster feature in str2str, will remove
+first leading slash in mount\-point\.
+

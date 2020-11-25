@@ -1,4 +1,4 @@
-.TH RTKRCV 1 "July 29 2016"
+.TH RTKRCV 1 "November 25 2020"
 .SH NAME
 rtkrcv \- realtime positioning
 .SH SYNOPSIS
@@ -28,6 +28,12 @@ configuration file
 output solution status file (0:off,1:states,2:residuals)
 .IP "-t level"
 debug trace level (0:off,1-5:on)
+.IP "-opt -REC_OPT"
+set the receiver dependent option for rtkrcv\.
+see section D\.5 of the pdf manual\.
+when performing real\-time positioning,
+one should set \fB\-opt \-RT_INP\fP \.
+
 
 .SH COMMANDS
 .IP "start"
