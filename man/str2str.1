@@ -22,10 +22,12 @@ stream path
  serial : serial://port[:brate[:bsize[:parity[:stopb[:fctr]]]]]
  tcp server : tcpsvr://:port
  tcp client : tcpcli://addr[:port]
- ucp server : udpsvr://:port
- tcp client : udpcli://addr:port
+ udp server : udpsvr://:port
+ udp client : udpcli://addr[:port]
  ntrip client : ntrip://[user[:passwd]@]addr[:port][/mntpnt]
  ntrip server : ntrips://[:passwd@]addr[:port][/mntpnt[:str]] (only out)
+ ntrip caster server: ntripc_s://[:passwd@][:port] (only in)
+ ntrip caster client: ntripc_c://[user:passwd@][:port]/mntpnt (only out)
  file : [file://]path[::T][::+start][::xseppd][::S=swap]
 
 format

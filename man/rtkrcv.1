@@ -24,6 +24,8 @@ port number for monitor stream
 terminal device for console
 .IP "-o file"
 configuration file
+.IP "-w pwd"
+login password for remote console ("": no password)
 .IP "-r level"
 output solution status file (0:off,1:states,2:residuals)
 .IP "-t level"
@@ -49,10 +51,12 @@ solution is displayed at intervals of cycle (s). To stop cyclic display, send br
 (ctr-C).
 .IP "status [cycle]"
 Show RTK status. Use option cycle for cyclic display.
-.IP "satellite [cycle]"
+.IP "satellite [-n] [cycle]"
 Show satellite status. Use option cycle for cyclic display.
+Option -n specify number of frequencies.
 .IP "observ [cycle]"
 Show observation data. Use option cycle for cyclic display.
+Option -n specify number of frequencies.
 .IP "navidata [cycle]"
 Show navigation data. Use option cycle for cyclic display.
 .IP "stream [cycle]"
