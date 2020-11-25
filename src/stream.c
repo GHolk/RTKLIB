@@ -1491,7 +1491,7 @@ static int reqntrip_s(ntrip_t *ntrip, char *msg)
     
     tracet(3,"reqntrip_s: state=%d\n",ntrip->state);
     
-    p+=sprintf(p,"SOURCE %s /%s\r\n",ntrip->passwd,ntrip->mntpnt);
+    p+=sprintf(p,"SOURCE %s %s\r\n",ntrip->passwd,ntrip->mntpnt);
     p+=sprintf(p,"Source-Agent: NTRIP %s\r\n",NTRIP_AGENT);
     p+=sprintf(p,"STR: %s\r\n",ntrip->str);
     p+=sprintf(p,"\r\n");
